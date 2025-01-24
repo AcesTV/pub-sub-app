@@ -11,6 +11,7 @@ on:
 
 env:
   PROJECT_FOLDER: "RabbitMqProductAPI"
+  PROJECT_FOLDER_TEST: "RabbitMqProductAPI.Tests"
   PROJECT_NAME: "RabbitMqProductAPI"
   DOTNET_VERSION: "9.x"
   DOTNET_EF_VERSION: "9.0.1"
@@ -59,7 +60,7 @@ jobs:
           name: .net-app
 
       - name: Run tests
-        working-directory: ${{env.PROJECT_FOLDER}}
+        working-directory: ${{env.PROJECT_FOLDER_TEST}}
         run: dotnet test
 
   deploy:
