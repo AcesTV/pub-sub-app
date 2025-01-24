@@ -60,9 +60,28 @@ jobs:
         with:
           dotnet-version: ${{env.DOTNET_VERSION}}
 
-
       - name: Test with dotnet
         run: dotnet test "RabbitMqProductAPI.Tests/RabbitMqProductAPI.Tests.csproj" --configuration Release
+
+  snyk:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Snyk
+        uses: snyk/actions/setup@v2
+        with:
+          version: 'latest'
+
+      - name: Authenticate Snyk
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: snyk auth $SNYK_TOKEN
+
+      - name: Test for vulnerabilities in dependencies
+        working-directory: ${{env.PROJECT_FOLDER}}
+        run: snyk test --all-projects --severity-threshold=high
 
   deploy:
     runs-on: ubuntu-latest
