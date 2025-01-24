@@ -6,7 +6,7 @@ name: Build and deploy API app
 on:
   push:
     branches:
-      - main
+      - develop
   workflow_dispatch:
 
 jobs:
@@ -56,7 +56,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: .net-app
-          
+
       - name: Run tests
         run: dotnet test
 
