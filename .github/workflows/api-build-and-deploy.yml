@@ -11,7 +11,6 @@ on:
 
 env:
   PROJECT_FOLDER: "RabbitMqProductAPI"
-  PROJECT_FOLDER_TEST: "RabbitMqProductAPI.Tests"
   PROJECT_NAME: "RabbitMqProductAPI"
   DOTNET_VERSION: "9.x"
   DOTNET_EF_VERSION: "9.0.1"
@@ -54,6 +53,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - uses: actions/checkout@v4
+
       - name: Test with dotnet
         run: dotnet test "RabbitMqProductAPI.Tests/RabbitMqProductAPI.Tests.csproj" --configuration Release
 
